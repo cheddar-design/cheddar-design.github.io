@@ -152,3 +152,70 @@ encodeBtn.addEventListener('click', () => {
 decodeBtn.addEventListener('click', () => {
     decodeOut.innerText = decode(document.getElementById('decodeIn').value);
 })
+
+// ------------ EMOCODE ------------------------
+
+const emoChars = new Map();
+const fillEmoMap = () => {
+emoChars.set('🦙', 'a');
+emoChars.set('🐝', 'b');
+emoChars.set('👓', 'c');
+emoChars.set('🦌', 'd');
+emoChars.set('🙀', 'e');
+emoChars.set('🧿', 'f');
+emoChars.set('🤦', 'g');
+emoChars.set('🔥', 'h');
+emoChars.set('👀', 'i');
+emoChars.set('🐦', 'j');
+emoChars.set('👌', 'k');
+emoChars.set('🌜', 'l');
+emoChars.set('🤑', 'm');
+emoChars.set('🚫', 'n');
+emoChars.set('😮', 'o');
+emoChars.set('🫣', 'p');
+emoChars.set('😫', 'q');
+emoChars.set('🤬', 'r');
+emoChars.set('💪', 's');
+emoChars.set('☕', 't');
+emoChars.set('🐑', 'u');
+emoChars.set('⛽', 'v');
+emoChars.set('🔱', 'w');
+emoChars.set('💩', 'x');
+emoChars.set('🥺', 'y');
+emoChars.set('😴', 'z');
+emoChars.set('😵', '!');
+emoChars.set('🤔', '?');
+emoChars.set('🚀', ' ');
+emoChars.set('🫥', '.');
+emoChars.set('🤐', ',');
+}
+fillEmoMap()
+const getEmo = (value) => {
+    return [...emoChars].find(([key, val]) => val == value)[0]
+}
+
+const emoEncode = (str) => {
+    let encoded = str.split('').map(c => getEmo(c.toLowerCase()));
+    return encoded.join('');
+}
+
+const emoDecode = (str) => {
+    let decoded = [...str];
+    decoded = decoded.map(c => emoChars.get(c.toLowerCase()))
+    return decoded.join('');
+}
+
+const emoEncodeBtn = document.getElementById('emoEncodeBtn');
+const emoEncodeOut = document.getElementById('emoEncodeOut');
+
+const emoDecodeBtn = document.getElementById('emoDecodeBtn');
+const emoDecodeOut = document.getElementById('emoDecodeOut');
+
+emoEncodeBtn.addEventListener('click', () => {
+    emoEncodeOut.innerText = emoEncode(document.getElementById('emoEncodeIn').value);
+    document.getElementById('emoDecodeIn').value = emoEncodeOut.innerText;
+})
+
+emoDecodeBtn.addEventListener('click', () => {
+    emoDecodeOut.innerText = emoDecode(document.getElementById('emoDecodeIn').value);
+})
