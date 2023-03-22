@@ -26,3 +26,9 @@ body {
 p {
     overflow-wrap: break-word;
 }
+
+.hidden {
+    opacity: 0;
+    border: 0;
+    outline: 0;
+}

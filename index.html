@@ -9,19 +9,26 @@
     <title>Code BLUE</title>
 </head>
 <body>
+    <button class="hidden">X</button>
     <div class="container-sm">
         <h3 class="pt-4 pb-2 text-center">Code BLUE:</h3>
     <div class="card">
         <div class="card-body">
             <div class="mb-3">
                 <label for="in" class="form-label">Encode:</label>
-                <textarea class="form-control" id="encodeIn" placeholder="Type anything in here except numbers and emojis."></textarea>
+                <div class="input-group">
+                    <textarea class="form-control" id="encodeIn" placeholder="Type anything in here except numbers and emojis."></textarea>
+                    <button class="input-group-text" id="encodeInBtn">X</button>
+                </div>
                 <button id="encodeBtn" class="mt-2 btn btn-secondary">Encode</button>
                 <p id="encodeOut" class="out mt-3">-</p>
             </div>
             <div class="mb-3">
                 <label for="in" class="form-label">Decode:</label>
-                <textarea class="form-control" id="decodeIn"></textarea>
+                <div class="input-group">
+                    <textarea class="form-control" id="decodeIn"></textarea>
+                    <button class="input-group-text" id="decodeInBtn">X</button>
+                </div>
                 <button id="decodeBtn" class="mt-2 btn btn-secondary">Decode</button>
                 <p id="decodeOut" class="out mt-3">-</p>
             </div>
@@ -32,13 +39,19 @@
         <div class="card-body">
             <div class="mb-3">
                 <label for="emoEncodeIn" class="form-label">Encode:</label>
-                <textarea class="form-control" id="emoEncodeIn" placeholder="Enter emocode here"></textarea>
+                <div class="input-group">
+                    <textarea class="form-control" id="emoEncodeIn" placeholder="Enter emocode here"></textarea>
+                    <button class="input-group-text" id="emoEncodeInBtn">X</button>
+                </div>
                 <button id="emoEncodeBtn" class="mt-2 btn btn-secondary">Encode</button>
                 <p id="emoEncodeOut" class="out mt-3">-</p>
             </div>
             <div class="mb-3">
                 <label for="emoDecodeIn" class="form-label">Decode:</label>
-                <textarea class="form-control" id="emoDecodeIn"></textarea>
+                <div class="input-group">
+                    <textarea class="form-control" id="emoDecodeIn"></textarea>
+                    <button class="input-group-text" id="emoDecodeInBtn">X</button>
+                </div>
                 <button id="emoDecodeBtn" class="mt-2 btn btn-secondary">Decode</button>
                 <p id="emoDecodeOut" class="out mt-3">-</p>
             </div>
