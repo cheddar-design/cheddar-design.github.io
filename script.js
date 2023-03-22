@@ -97,21 +97,28 @@ const getLetter = (value) => {
     return [...chars].find(([key, val]) => val == value)[0]
 }
 
+const fibonacci = (num) => {
+    return num < 2 ? num : fibonacci(num - 1) + fibonacci(num - 2);
+}
+
 const cl = chars.size;
 
 const encode = (str) => {
+    const key = Math.floor(Math.random() * (cl-1));
     let encoded = [];
+    str = str.split('').reverse().join('');
     let add = (Math.floor(str.length/cl)*cl)+cl;
     for (let i = 0; i < str.length; i++) {
         let shift = i;
-        console.log(chars.get(str[i]), str[i], shift, add, cl)
-        let char = i%2 == 0 ? (chars.get(str[i])+shift+add)%cl : getLetter((chars.get(str[i])+shift+add)%cl);
+        let char = i%2 == 0 ? ((chars.get(str[i])+shift+add)%cl)*key : getLetter((chars.get(str[i])+shift+add)%cl);
         encoded.push(char);
     }
-    return encoded.join('');
+    return encoded.join('').split('').reverse().join('').concat(getLetter(key));
 }
 
 const decode = (str) => {
+    const key = chars.get(str[str.length-1]);
+    str = str.slice(0,-1).split('').reverse().join('');
     let patt = /(\d+)/g;
     let patt2 = /\D/g;
     let nums = str.match(patt);
@@ -121,16 +128,15 @@ const decode = (str) => {
     let add = (Math.floor(length*2/cl)*cl)+cl;
     for (let i = 0; i < length; i++) {
         let shift = i*2;
-        decode.push(getLetter((Number(nums[0])-shift+add)%cl));
+        decode.push(getLetter((((Number(nums[0])/key)-shift+add)%cl)));
         nums.shift();
         if (char && char[0]) {
             shift++;
-            console.log(chars.get(char[0]), char[0], shift, add, cl)
             decode.push(getLetter((chars.get(char[0])-shift+add)%cl));
             char.shift();
         }
     }
-    return decode.join('');
+    return decode.reverse().join('');
 }
 
 const encodeBtn = document.getElementById('encodeBtn');
