@@ -101,73 +101,6 @@ const fibonacci = (num) => {
     return num < 2 ? num : fibonacci(num - 1) + fibonacci(num - 2);
 }
 
-let activated = false;
-
-const cl = chars.size;
-
-const encode = (str) => {
-    const key = Math.floor(Math.random() * (cl-1));
-    let encoded = [];
-    str = str.split('').reverse().join('');
-    let add = (Math.floor(str.length/cl)*cl)+cl;
-    for (let i = 0; i < str.length; i++) {
-        let shift = i;
-        let char = i%2 == 0 ? ((chars.get(str[i])+shift+add)%cl)*key : getLetter((chars.get(str[i])+shift+add)%cl);
-        encoded.push(char);
-    }
-    if (activated) {
-        return encoded.join('').split('').reverse().join('').concat(getLetter(key));
-    } else {
-        return encoded.join('').split('').reverse().join('');
-    }
-}
-
-const decode = (str) => {
-    const key = activated ? chars.get(str[str.length-1]) : 54;
-    str = str.slice(0,-1).split('').reverse().join('');
-    let patt = /(\d+)/g;
-    let patt2 = /\D/g;
-    let nums = str.match(patt);
-    let char = str.match(patt2);
-    let length = nums ? nums.length : 0;
-    let decode = [];
-    let add = (Math.floor(length*2/cl)*cl)+cl;
-    for (let i = 0; i < length; i++) {
-        let shift = i*2;
-        decode.push(getLetter(Math.floor((((Number(nums[0])/key)-shift+add)%cl))));
-        nums.shift();
-        if (char && char[0]) {
-            shift++;
-            decode.push(getLetter((chars.get(char[0])-shift+add)%cl));
-            char.shift();
-        }
-    }
-    return decode.reverse().join('');
-}
-
-const encodeBtn = document.getElementById('encodeBtn');
-const encodeOut = document.getElementById('encodeOut');
-
-const decodeBtn = document.getElementById('decodeBtn');
-const decodeOut = document.getElementById('decodeOut');
-
-encodeBtn.addEventListener('click', () => {
-    if (!document.getElementById('encodeIn').value.match(/\d/g)) {
-        encodeOut.innerText = encode(document.getElementById('encodeIn').value);
-        document.getElementById('decodeIn').value = encodeOut.innerText;
-        document.getElementById('emoEncodeIn').value = encodeOut.innerText;
-        document.getElementById('error').innerText = '';
-    } else {
-        document.getElementById('error').innerText = 'Remove all numbers and emojis';
-    }
-})
-
-decodeBtn.addEventListener('click', () => {
-    decodeOut.innerText = decode(document.getElementById('decodeIn').value);
-})
-
-// ------------ EMOCODE ------------------------
-
 const emoChars = new Map();
 const fillEmoMap = () => {
 emoChars.set('🦙', 'a');
@@ -297,24 +230,72 @@ const emoDecode = (str) => {
     return decoded.join('');
 }
 
-const emoEncodeBtn = document.getElementById('emoEncodeBtn');
-const emoEncodeOut = document.getElementById('emoEncodeOut');
+let activated = false;
 
-const emoDecodeBtn = document.getElementById('emoDecodeBtn');
-const emoDecodeOut = document.getElementById('emoDecodeOut');
+const cl = chars.size;
 
-emoEncodeBtn.addEventListener('click', () => {
-    emoEncodeOut.innerText = emoEncode(document.getElementById('emoEncodeIn').value);
-    let out = document.getElementById('emoDecodeIn');
-    out.value = emoEncodeOut.innerText;
-    out.select();
-    out.setSelectionRange(0, 99999);
-    navigator.clipboard.writeText(out.value);
+const encode = (str) => {
+    const key = Math.floor(Math.random() * (cl-1));
+    let encoded = [];
+    str = str.split('').reverse().join('');
+    let add = (Math.floor(str.length/cl)*cl)+cl;
+    for (let i = 0; i < str.length; i++) {
+        let shift = i;
+        let char = i%2 == 0 ? ((chars.get(str[i])+shift+add)%cl)*key : getLetter((chars.get(str[i])+shift+add)%cl);
+        encoded.push(char);
+    }
+    if (activated) {
+        return encoded.join('').split('').reverse().join('').concat(getLetter(key));
+    } else {
+        return encoded.join('').split('').reverse().join('');
+    }
+}
+
+const decode = (str) => {
+    const key = activated ? chars.get(str[str.length-1]) : 54;
+    str = str.slice(0,-1).split('').reverse().join('');
+    let patt = /(\d+)/g;
+    let patt2 = /\D/g;
+    let nums = str.match(patt);
+    let char = str.match(patt2);
+    let length = nums ? nums.length : 0;
+    let decode = [];
+    let add = (Math.floor(length*2/cl)*cl)+cl;
+    for (let i = 0; i < length; i++) {
+        let shift = i*2;
+        decode.push(getLetter(Math.floor((((Number(nums[0])/key)-shift+add)%cl))));
+        nums.shift();
+        if (char && char[0]) {
+            shift++;
+            decode.push(getLetter((chars.get(char[0])-shift+add)%cl));
+            char.shift();
+        }
+    }
+    return decode.reverse().join('');
+}
+
+const encodeBtn = document.getElementById('encodeBtn');
+const encodeOut = document.getElementById('encodeOut');
+
+const decodeBtn = document.getElementById('decodeBtn');
+const decodeOut = document.getElementById('decodeOut');
+
+encodeBtn.addEventListener('click', () => {
+    if (!document.getElementById('encodeIn').value.match(/\d/g)) {
+        let blue = encode(document.getElementById('encodeIn').value);
+        let emoblue = emoEncode(blue);
+        encodeOut.innerText = emoblue;
+        document.getElementById('decodeIn').value = emoblue;
+        document.getElementById('error').innerText = '';
+    } else {
+        document.getElementById('error').innerText = 'Remove all numbers and emojis';
+    }
 })
 
-emoDecodeBtn.addEventListener('click', () => {
-    emoDecodeOut.innerText = emoDecode(document.getElementById('emoDecodeIn').value);
-    document.getElementById('decodeIn').value = emoDecodeOut.innerText;
+decodeBtn.addEventListener('click', () => {
+    let emo = emoDecode(document.getElementById('decodeIn').value);
+    let emoblue = decode(emo);
+    decodeOut.innerText = emoblue;
 })
 
 document.querySelectorAll('textarea').forEach(a => {
@@ -335,14 +316,4 @@ document.getElementById('encodeInBtn').addEventListener('click', e => {
 document.getElementById('decodeInBtn').addEventListener('click', e => {
     document.getElementById('decodeIn').value = '';
     decodeOut.innerText = '-';
-})
-
-document.getElementById('emoEncodeInBtn').addEventListener('click', e => {
-    document.getElementById('emoEncodeIn').value = '';
-    emoEncodeOut.innerText = '-';
-})
-
-document.getElementById('emoDecodeInBtn').addEventListener('click', e => {
-    document.getElementById('emoDecodeIn').value = '';
-    emoDecodeOut.innerText = '-';
 })
