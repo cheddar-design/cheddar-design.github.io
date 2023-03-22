@@ -232,7 +232,7 @@ emoChars.set('👹', '&');
 emoChars.set('👺', '*');
 emoChars.set('💀', '(');
 emoChars.set('👻', ')');
-emoChars.set('☠️', '-');
+emoChars.set('🫀', '-');
 emoChars.set('😹', '[');
 emoChars.set('😻', ']');
 emoChars.set('🙈', ';');
