@@ -284,8 +284,12 @@ encodeBtn.addEventListener('click', () => {
     if (!document.getElementById('encodeIn').value.match(/\d/g)) {
         let blue = encode(document.getElementById('encodeIn').value);
         let emoblue = emoEncode(blue);
+        let out = document.getElementById('decodeIn');
         encodeOut.innerText = emoblue;
-        document.getElementById('decodeIn').value = emoblue;
+        out.value = emoblue;
+        out.select();
+        out.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(out.value);
         document.getElementById('error').innerText = '';
     } else {
         document.getElementById('error').innerText = 'Remove all numbers and emojis';
