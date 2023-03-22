@@ -189,11 +189,79 @@ emoChars.set('🔱', 'w');
 emoChars.set('💩', 'x');
 emoChars.set('🥺', 'y');
 emoChars.set('😴', 'z');
+emoChars.set('😁', 'A');
+emoChars.set('😂', 'B');
+emoChars.set('😎', 'C');
+emoChars.set('😊', 'D');
+emoChars.set('😉', 'E');
+emoChars.set('😘', 'F');
+emoChars.set('😍', 'G');
+emoChars.set('😗', 'H');
+emoChars.set('🤩', 'I');
+emoChars.set('😶', 'J');
+emoChars.set('😐', 'K');
+emoChars.set('😚', 'L');
+emoChars.set('🐡', 'M');
+emoChars.set('🙄', 'N');
+emoChars.set('😏', 'O');
+emoChars.set('🥱', 'P');
+emoChars.set('🫠', 'Q');
+emoChars.set('😕', 'R');
+emoChars.set('😭', 'S');
+emoChars.set('😤', 'T');
+emoChars.set('🥶', 'U');
+emoChars.set('😷', 'V');
+emoChars.set('😰', 'W');
+emoChars.set('🐻', 'X');
+emoChars.set('🤢', 'Y');
+emoChars.set('🤮', 'Z')
 emoChars.set('😵', '!');
 emoChars.set('🤔', '?');
-emoChars.set('🚀', ' ');
 emoChars.set('🫥', '.');
 emoChars.set('🤐', ',');
+emoChars.set('🚀', ' ');
+emoChars.set('🤠', "'");
+emoChars.set('🤡', ':');
+emoChars.set('🥸', '/');
+emoChars.set('🤥', '@');
+emoChars.set('🤫', '#');
+emoChars.set('🤭', '$');
+emoChars.set('😈', '%');
+emoChars.set('🤓', '^');
+emoChars.set('👹', '&');
+emoChars.set('👺', '*');
+emoChars.set('💀', '(');
+emoChars.set('👻', ')');
+emoChars.set('☠️', '-');
+emoChars.set('😹', '[');
+emoChars.set('😻', ']');
+emoChars.set('🙈', ';');
+emoChars.set('🐺', '"');
+emoChars.set('🐶', '<');
+emoChars.set('🦊', '>');
+emoChars.set('🐮', '\\');
+emoChars.set('🐻‍❄️', '~');
+emoChars.set('🦓', '`');
+emoChars.set('🐸', '_');
+emoChars.set('🐾', '+');
+emoChars.set('🐈', '=');
+emoChars.set('🐖', '{');
+emoChars.set('🦨', '}');
+emoChars.set('🐍', '“');
+emoChars.set('🐳', '”');
+emoChars.set('🦐', '‘');
+emoChars.set('🦿', '’');
+emoChars.set('🫰', '\n');
+emoChars.set('👊', '0');
+emoChars.set('🫲', '1');
+emoChars.set('🐮', '2');
+emoChars.set('👎', '3');
+emoChars.set('✊', '4');
+emoChars.set('🤚', '5');
+emoChars.set('🤜', '6');
+emoChars.set('🤌', '7');
+emoChars.set('🫴', '8');
+emoChars.set('🤞', '9');
 }
 fillEmoMap()
 const getEmo = (value) => {
@@ -201,13 +269,13 @@ const getEmo = (value) => {
 }
 
 const emoEncode = (str) => {
-    let encoded = str.split('').map(c => getEmo(c.toLowerCase()));
+    let encoded = str.split('').map(c => getEmo(c));
     return encoded.join('');
 }
 
 const emoDecode = (str) => {
     let decoded = [...str];
-    decoded = decoded.map(c => emoChars.get(c.toLowerCase()))
+    decoded = decoded.map(c => emoChars.get(c))
     return decoded.join('');
 }
 
