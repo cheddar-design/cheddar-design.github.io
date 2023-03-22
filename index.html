@@ -21,7 +21,16 @@
                     <button class="input-group-text" id="encodeInBtn">X</button>
                 </div>
                 <button id="encodeBtn" class="mt-2 btn btn-secondary">Encode</button>
-                <p id="encodeOut" class="out mt-3">-</p>
+                <div class="accordion mt-2" id="accordionOne">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Results:</button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
+                            <div class="accordion-body" id="encodeOut">-</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="in" class="form-label">Decode:</label>
@@ -30,7 +39,16 @@
                     <button class="input-group-text" id="decodeInBtn">X</button>
                 </div>
                 <button id="decodeBtn" class="mt-2 btn btn-secondary">Decode</button>
-                <p id="decodeOut" class="out mt-3">-</p>
+                <div class="accordion mt-2" id="accordionOne">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Results:</button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
+                            <div class="accordion-body" id="decodeOut">-</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -44,7 +62,16 @@
                     <button class="input-group-text" id="emoEncodeInBtn">X</button>
                 </div>
                 <button id="emoEncodeBtn" class="mt-2 btn btn-secondary">Encode</button>
-                <p id="emoEncodeOut" class="out mt-3">-</p>
+                <div class="accordion mt-2" id="accordionOne">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Results:</button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionOne">
+                            <div class="accordion-body" id="emoEncodeOut">-</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="emoDecodeIn" class="form-label">Decode:</label>
@@ -53,7 +80,16 @@
                     <button class="input-group-text" id="emoDecodeInBtn">X</button>
                 </div>
                 <button id="emoDecodeBtn" class="mt-2 btn btn-secondary">Decode</button>
-                <p id="emoDecodeOut" class="out mt-3">-</p>
+                <div class="accordion mt-2" id="accordionTwo">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Results:</button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionTwo">
+                            <div class="accordion-body" id="emoDecodeOut">-</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
