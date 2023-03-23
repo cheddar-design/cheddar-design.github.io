@@ -258,44 +258,93 @@ let activated = false;
 const cl = chars.size;
 
 const encode = (str) => {
-    str = str.split('').map(c => isNaN(parseInt(c)) ? c : numbers[Number(c)]).join('');
+    console.group('Code BLUE - Encode');
+    console.group('Setup');
+    console.log(`Input: ${str}`);
+    str = str.split('').map(c => isNaN(parseInt(c)) ? c : numbers[Number(c)]).reverse().join('');
+    console.log(`Reversed and numbers replaced: ${str}`);
     const key = Math.floor(Math.random() * (cl-1));
-    let encoded = [];
-    str = str.split('').reverse().join('');
+    console.log(`Key: ${key} - ${getLetter(key)}`);
     let add = (Math.floor(str.length/cl)*cl)+cl;
+    console.log(`Add: ${add}`);
+    console.groupEnd();
+    console.groupCollapsed('Iterations');
+    let encoded = [];
     for (let i = 0; i < str.length; i++) {
+        console.group(i.toString());
         let shift = i;
+        console.log(`Shift: ${i}`);
+        console.log(`Raw character: ${str[i]} - ${chars.get(str[i])}`)
         let char = i%2 == 0 ? ((chars.get(str[i])+shift+add)%cl)*key : getLetter((chars.get(str[i])+shift+add)%cl);
+        console.log(`Math: ((${chars.get(str[i])} + ${shift}) % ${cl}) * ${key}`);
+        console.log(`Character: ${char}`);
         encoded.push(char);
+        console.groupEnd();
     }
+    console.groupEnd();
     if (activated) {
-        return encoded.join('').split('').reverse().join('').concat(getLetter(key));
+        encoded = encoded.join('').split('').reverse().join('').concat(getLetter(key));
+        console.log('%cResult:', 'font-weight: bold', encoded)
+        console.groupEnd();
+        return encoded;
     } else {
-        return encoded.join('').split('').reverse().join('');
+        encoded = encoded.join('').split('').reverse().join('');
+        console.log('%cResult:', 'font-weight: bold', encoded)
+        console.groupEnd();
+        return encoded;
     }
 }
 
 const decode = (str) => {
+    console.group('Code BLUE - Decode');
+    console.group('Setup');
+    console.log(`Input: ${str}`)
     const key = activated ? chars.get(str[str.length-1]) : 54;
-    str = str.slice(0,-1).split('').reverse().join('');
+    console.log(`Key: ${key} - ${getLetter(key)}`);
+    str = activated ? str.slice(0,-1).split('').reverse().join('') : str.split('').reverse().join('');
+    console.log(`Reversed and key removed: ${str}`);
     let patt = /(\d+)/g;
-    let patt2 = /\D/g;
+    let patt2 = /\D+/g;
     let nums = str.match(patt);
     let char = str.match(patt2);
+    console.groupCollapsed('Numbers and characters');
+    console.log(nums);
+    console.log(char);
+    console.groupEnd();
     let length = nums ? nums.length : 0;
-    let decode = [];
+    let decoded = [];
     let add = (Math.floor(length*2/cl)*cl)+cl;
+    console.log(`Add: ${add}`);
+    console.groupEnd();
+    console.groupCollapsed('Iterations');
     for (let i = 0; i < length; i++) {
         let shift = i*2;
-        decode.push(getLetter(Math.floor((((Number(nums[0])/key)-shift+add)%cl))));
+        console.group(shift.toString());
+        console.log(`Shift: ${shift}`);
+        console.log(`Input number: ${nums[0]}`);
+        let alteredNum = Math.floor((((Number(nums[0])/key)-shift+add)%cl));
+        console.log(`Output number: ${alteredNum}`);
+        console.log(`Output character: ${getLetter(alteredNum)}`);
+        decoded.push(getLetter(alteredNum));
         nums.shift();
+        console.groupEnd();
         if (char && char[0]) {
             shift++;
-            decode.push(getLetter((chars.get(char[0])-shift+add)%cl));
+            console.group(shift.toString());
+            console.log(`Shift: ${shift}`);
+            console.log(`Input character: ${char[0]}`);
+            let alteredChar = getLetter((chars.get(char[0])-shift+add)%cl);
+            decoded.push(alteredChar);
+            console.log(`Output character: ${alteredChar}`);
             char.shift();
+            console.groupEnd();
         }
     }
-    return decode.reverse().map(c => numbers.includes(c) ? numbers.indexOf(c).toString() : c).join('');
+    console.groupEnd();
+    decoded = decoded.reverse().map(c => numbers.includes(c) ? numbers.indexOf(c).toString() : c).join('')
+    console.log('%cResult:', 'font-weight: bold', decoded);
+    console.groupEnd();
+    return decoded;
 }
 
 const encodeBtn = document.getElementById('encodeBtn');
@@ -313,19 +362,34 @@ encodeBtn.addEventListener('click', () => {
     let out = document.getElementById('decodeIn');
     let emo = emoDecode(emoblue);
     let emoblueTest = decode(emo);
-    encodeMatch.innerText = emoblueTest == input ? 'The message encoded correctly' : 'The message encoded incorrectly';
+    encodeMatch.innerHTML = emoblueTest == input ? '<i class="bi bi-check"></i> The message encoded correctly' : '<i class="bi bi-x"></i> The message encoded incorrectly';
+    encodeMatch.classList = emoblueTest == input ? 'fw-semibold opacity-75 text-success' : 'fw-semibold opacity-75 text-danger';
     encodeOut.innerText = emoblue;
     out.value = emoblue;
     out.select();
     out.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(out.value);
     document.getElementById('error').innerText = '';
+    if (document.getElementById('autoclear').checked) {
+        if (emoblueTest == input) {
+            setTimeout(e => {
+                if (document.getElementById('autoclear').checked) {
+                    document.getElementById('encodeIn').value = '';
+                }
+            }, 3000);
+        }
+    }
 })
 
 decodeBtn.addEventListener('click', () => {
     let emo = emoDecode(document.getElementById('decodeIn').value);
     let emoblue = decode(emo);
     decodeOut.innerText = emoblue;
+    setTimeout(e => {
+        if (document.getElementById('autoclear').checked) {
+            document.getElementById('decodeIn').value = '';
+        }
+    }, 3000);
 })
 
 document.querySelectorAll('textarea').forEach(a => {
@@ -334,7 +398,10 @@ document.querySelectorAll('textarea').forEach(a => {
     })
 })
 
+console.info('%c-- Security scrambler is activated --', 'color: #ffda6a');
+
 document.querySelector('.hidden').addEventListener('click', e => {
+    !activated && console.log('%c-- Security scrambler deactivated --', 'color: #198754');
     activated = true;
 })
 
