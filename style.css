@@ -17,11 +17,6 @@ body {
     user-select: all
 }
 
-#error {
-    margin-top: 12px;
-    color: red;
-}
-
 p {
     overflow-wrap: break-word;
 }
