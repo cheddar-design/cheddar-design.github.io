@@ -23,8 +23,12 @@ p {
 
 .hidden {
     opacity: 0;
+}
+
+.security {
     border: 0;
     outline: 0;
+    background: none;
 }
 
 .nav-link {

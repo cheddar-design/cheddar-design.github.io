@@ -400,9 +400,11 @@ document.querySelectorAll('textarea').forEach(a => {
 
 console.info('%c-- Security scrambler is activated --', 'color: #ffda6a');
 
-document.querySelector('.hidden').addEventListener('click', e => {
-    !activated && console.log('%c-- Security scrambler deactivated --', 'color: #198754');
-    activated = true;
+document.querySelector('.security').addEventListener('click', e => {
+    document.querySelector('.security').classList.toggle('hidden');
+    !activated && console.info('%c-- Security scrambler deactivated --', 'color: #198754');
+    activated && console.info('%c-- Security scrambler is activated --', 'color: #ffda6a');
+    activated = !activated;
 })
 
 document.getElementById('encodeInBtn').addEventListener('click', e => {
