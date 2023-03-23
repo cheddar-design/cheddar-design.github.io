@@ -91,27 +91,11 @@ chars.set('”', 85);
 chars.set('‘', 86);
 chars.set('’', 87);
 chars.set('\n', 88);
-chars.set('ñ', 89);
-chars.set('ś', 90);
-chars.set('ï', 91);
-chars.set('ī', 92);
-chars.set('ė', 93);
-chars.set('ë', 94);
-chars.set('š', 95);
-chars.set('ù', 96);
-chars.set('œ', 97);
-chars.set('ō', 98);
 }
-
-const numbers = ['ñ', 'ś', 'ï', 'ī', 'ė', 'ë', 'š', 'ù', 'œ', 'ō'];
 
 fillMap()
 const getLetter = (value) => {
     return [...chars].find(([key, val]) => val == value)[0]
-}
-
-const fibonacci = (num) => {
-    return num < 2 ? num : fibonacci(num - 1) + fibonacci(num - 2);
 }
 
 const emoChars = new Map();
@@ -257,96 +241,6 @@ let activated = false;
 
 const cl = chars.size;
 
-const encode = (str) => {
-    console.group('Code BLUE - Encode');
-    console.group('Setup');
-    console.log(`Input: ${str}`);
-    str = str.split('').map(c => isNaN(parseInt(c)) ? c : numbers[Number(c)]).reverse().join('');
-    console.log(`Reversed and numbers replaced: ${str}`);
-    const key = Math.floor(Math.random() * (cl-1));
-    console.log(`Key: ${key} - ${getLetter(key)}`);
-    let add = (Math.floor(str.length/cl)*cl)+cl;
-    console.log(`Add: ${add}`);
-    console.groupEnd();
-    console.groupCollapsed('Iterations');
-    let encoded = [];
-    for (let i = 0; i < str.length; i++) {
-        console.group(i.toString());
-        let shift = i;
-        console.log(`Shift: ${i}`);
-        console.log(`Raw character: ${str[i]} - ${chars.get(str[i])}`)
-        let char = i%2 == 0 ? ((chars.get(str[i])+shift+add)%cl)*key : getLetter((chars.get(str[i])+shift+add)%cl);
-        console.log(`Math: ((${chars.get(str[i])} + ${shift}) % ${cl}) * ${key}`);
-        console.log(`Character: ${char}`);
-        encoded.push(char);
-        console.groupEnd();
-    }
-    console.groupEnd();
-    if (activated) {
-        encoded = encoded.join('').split('').reverse().join('').concat(getLetter(key));
-        console.log('%cResult:', 'font-weight: bold', encoded)
-        console.groupEnd();
-        return encoded;
-    } else {
-        encoded = encoded.join('').split('').reverse().join('');
-        console.log('%cResult:', 'font-weight: bold', encoded)
-        console.groupEnd();
-        return encoded;
-    }
-}
-
-const decode = (str) => {
-    console.group('Code BLUE - Decode');
-    console.group('Setup');
-    console.log(`Input: ${str}`)
-    const key = activated ? chars.get(str[str.length-1]) : 54;
-    console.log(`Key: ${key} - ${getLetter(key)}`);
-    str = activated ? str.slice(0,-1).split('').reverse().join('') : str.split('').reverse().join('');
-    console.log(`Reversed and key removed: ${str}`);
-    let patt = /(\d+)/g;
-    let patt2 = /\D+/g;
-    let nums = str.match(patt);
-    let char = str.match(patt2);
-    console.groupCollapsed('Numbers and characters');
-    console.log(nums);
-    console.log(char);
-    console.groupEnd();
-    let length = nums ? nums.length : 0;
-    let decoded = [];
-    let add = (Math.floor(length*2/cl)*cl)+cl;
-    console.log(`Add: ${add}`);
-    console.groupEnd();
-    console.groupCollapsed('Iterations');
-    for (let i = 0; i < length; i++) {
-        let shift = i*2;
-        console.group(shift.toString());
-        console.log(`Shift: ${shift}`);
-        console.log(`Input number: ${nums[0]}`);
-        let alteredNum = Math.floor((((Number(nums[0])/key)-shift+add)%cl));
-        console.log(`Output number: ${alteredNum}`);
-        console.log(`Output character: ${getLetter(alteredNum)}`);
-        decoded.push(getLetter(alteredNum));
-        nums.shift();
-        console.groupEnd();
-        if (char && char[0]) {
-            shift++;
-            console.group(shift.toString());
-            console.log(`Shift: ${shift}`);
-            console.log(`Input character: ${char[0]}`);
-            let alteredChar = getLetter((chars.get(char[0])-shift+add)%cl);
-            decoded.push(alteredChar);
-            console.log(`Output character: ${alteredChar}`);
-            char.shift();
-            console.groupEnd();
-        }
-    }
-    console.groupEnd();
-    decoded = decoded.reverse().map(c => numbers.includes(c) ? numbers.indexOf(c).toString() : c).join('')
-    console.log('%cResult:', 'font-weight: bold', decoded);
-    console.groupEnd();
-    return decoded;
-}
-
 const encodeBtn = document.getElementById('encodeBtn');
 const encodeOut = document.getElementById('encodeOut');
 
@@ -357,21 +251,19 @@ const encodeMatch = document.getElementById('encodeMatch');
 
 encodeBtn.addEventListener('click', () => {
     let input = document.getElementById('encodeIn').value;
-    let blue = encode(document.getElementById('encodeIn').value);
-    let emoblue = emoEncode(blue);
+    let emo = emoEncode(document.getElementById('encodeIn').value);
     let out = document.getElementById('decodeIn');
-    let emo = emoDecode(emoblue);
-    let emoblueTest = decode(emo);
-    encodeMatch.innerHTML = emoblueTest == input ? '<i class="bi bi-check"></i> The message encoded correctly' : '<i class="bi bi-x"></i> The message encoded incorrectly';
-    encodeMatch.classList = emoblueTest == input ? 'fw-semibold opacity-75 text-success' : 'fw-semibold opacity-75 text-danger';
-    encodeOut.innerText = emoblue;
-    out.value = emoblue;
+    let emoTest = emoDecode(emo);
+    encodeMatch.innerHTML = emoTest == input ? '<i class="bi bi-check"></i> The message encoded correctly' : '<i class="bi bi-x"></i> The message encoded incorrectly';
+    encodeMatch.classList = emoTest == input ? 'fw-semibold opacity-75 text-success' : 'fw-semibold opacity-75 text-danger';
+    encodeOut.innerText = emo;
+    out.value = emo;
     out.select();
     out.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(out.value);
     document.getElementById('error').innerText = '';
     if (document.getElementById('autoclear').checked) {
-        if (emoblueTest == input) {
+        if (emoTest == input) {
             setTimeout(e => {
                 if (document.getElementById('autoclear').checked) {
                     document.getElementById('encodeIn').value = '';
@@ -383,8 +275,7 @@ encodeBtn.addEventListener('click', () => {
 
 decodeBtn.addEventListener('click', () => {
     let emo = emoDecode(document.getElementById('decodeIn').value);
-    let emoblue = decode(emo);
-    decodeOut.innerText = emoblue;
+    decodeOut.innerText = emo;
     setTimeout(e => {
         if (document.getElementById('autoclear').checked) {
             document.getElementById('decodeIn').value = '';

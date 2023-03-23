@@ -114,145 +114,6 @@ const fibonacci = (num) => {
     return num < 2 ? num : fibonacci(num - 1) + fibonacci(num - 2);
 }
 
-const emoChars = new Map();
-const fillEmoMap = () => {
-emoChars.set('🦙', 'a');
-emoChars.set('🐝', 'b');
-emoChars.set('👓', 'c');
-emoChars.set('🦌', 'd');
-emoChars.set('🙀', 'e');
-emoChars.set('🧿', 'f');
-emoChars.set('🤦', 'g');
-emoChars.set('🔥', 'h');
-emoChars.set('👀', 'i');
-emoChars.set('🐦', 'j');
-emoChars.set('👌', 'k');
-emoChars.set('🌜', 'l');
-emoChars.set('🤑', 'm');
-emoChars.set('🚫', 'n');
-emoChars.set('😮', 'o');
-emoChars.set('🫣', 'p');
-emoChars.set('😫', 'q');
-emoChars.set('🤬', 'r');
-emoChars.set('💪', 's');
-emoChars.set('☕', 't');
-emoChars.set('🐑', 'u');
-emoChars.set('⛽', 'v');
-emoChars.set('🔱', 'w');
-emoChars.set('💩', 'x');
-emoChars.set('🥺', 'y');
-emoChars.set('😴', 'z');
-emoChars.set('😁', 'A');
-emoChars.set('😂', 'B');
-emoChars.set('😎', 'C');
-emoChars.set('😊', 'D');
-emoChars.set('😉', 'E');
-emoChars.set('😘', 'F');
-emoChars.set('😍', 'G');
-emoChars.set('😗', 'H');
-emoChars.set('🤩', 'I');
-emoChars.set('😶', 'J');
-emoChars.set('😐', 'K');
-emoChars.set('😚', 'L');
-emoChars.set('🐡', 'M');
-emoChars.set('🙄', 'N');
-emoChars.set('😏', 'O');
-emoChars.set('🥱', 'P');
-emoChars.set('🫠', 'Q');
-emoChars.set('😕', 'R');
-emoChars.set('😭', 'S');
-emoChars.set('😤', 'T');
-emoChars.set('🥶', 'U');
-emoChars.set('😷', 'V');
-emoChars.set('😰', 'W');
-emoChars.set('🐻', 'X');
-emoChars.set('🤢', 'Y');
-emoChars.set('🤮', 'Z')
-emoChars.set('😵', '!');
-emoChars.set('🤔', '?');
-emoChars.set('🫥', '.');
-emoChars.set('🤐', ',');
-emoChars.set('🚀', ' ');
-emoChars.set('🤠', "'");
-emoChars.set('🤡', ':');
-emoChars.set('🥸', '/');
-emoChars.set('🤥', '@');
-emoChars.set('🤫', '#');
-emoChars.set('🤭', '$');
-emoChars.set('😈', '%');
-emoChars.set('🤓', '^');
-emoChars.set('👹', '&');
-emoChars.set('👺', '*');
-emoChars.set('💀', '(');
-emoChars.set('👻', ')');
-emoChars.set('🫀', '-');
-emoChars.set('😹', '[');
-emoChars.set('😻', ']');
-emoChars.set('🙈', ';');
-emoChars.set('🐺', '"');
-emoChars.set('🐶', '<');
-emoChars.set('🦊', '>');
-emoChars.set('🥾', '\\');
-emoChars.set('🦴', '~');
-emoChars.set('🦓', '`');
-emoChars.set('🐸', '_');
-emoChars.set('🐾', '+');
-emoChars.set('🐈', '=');
-emoChars.set('🐖', '{');
-emoChars.set('🦨', '}');
-emoChars.set('🐍', '“');
-emoChars.set('🐳', '”');
-emoChars.set('🦐', '‘');
-emoChars.set('🦿', '’');
-emoChars.set('🫰', '\n');
-emoChars.set('👊', '0');
-emoChars.set('🫲', '1');
-emoChars.set('🐮', '2');
-emoChars.set('👎', '3');
-emoChars.set('✊', '4');
-emoChars.set('🤚', '5');
-emoChars.set('🤜', '6');
-emoChars.set('🤌', '7');
-emoChars.set('🫴', '8');
-emoChars.set('🤞', '9');
-emoChars.set('👟', 'ñ');
-emoChars.set('👒', 'ś');
-emoChars.set('⚽', 'ï');
-emoChars.set('💎', 'ī');
-emoChars.set('🏈', 'ė');
-emoChars.set('🎱', 'ë');
-emoChars.set('🏉', 'š');
-emoChars.set('🎳', 'ù');
-emoChars.set('🏐', 'œ');
-emoChars.set('🏀', 'ō');
-}
-fillEmoMap()
-const getEmo = (value) => {
-    return [...emoChars].find(([key, val]) => val == value)[0]
-}
-
-const emoEncode = (str) => {
-    let encoded = str.split('').map(c => getEmo(c));
-    return encoded.join('');
-}
-
-const emoDecode = (str) => {
-    let decoded = [...str];
-    decoded = decoded.map(c => emoChars.get(c))
-    if (!activated) {
-        decoded = decoded.map(e => {
-            if (chars.get(e) > cl - 10 && chars.get(e)) {
-                return getLetter(chars.get(e) - Math.floor(Math.random() * 10));
-            } else if (chars.get(e)) {
-                return getLetter(chars.get(e) + Math.floor(Math.random() * 10));
-            } else {
-                return e;
-            }
-        })
-    }
-    return decoded.join('');
-}
-
 let activated = false;
 
 const cl = chars.size;
@@ -358,20 +219,18 @@ const encodeMatch = document.getElementById('encodeMatch');
 encodeBtn.addEventListener('click', () => {
     let input = document.getElementById('encodeIn').value;
     let blue = encode(document.getElementById('encodeIn').value);
-    let emoblue = emoEncode(blue);
     let out = document.getElementById('decodeIn');
-    let emo = emoDecode(emoblue);
-    let emoblueTest = decode(emo);
-    encodeMatch.innerHTML = emoblueTest == input ? '<i class="bi bi-check"></i> The message encoded correctly' : '<i class="bi bi-x"></i> The message encoded incorrectly';
-    encodeMatch.classList = emoblueTest == input ? 'fw-semibold opacity-75 text-success' : 'fw-semibold opacity-75 text-danger';
-    encodeOut.innerText = emoblue;
-    out.value = emoblue;
+    let blueTest = decode(blue);
+    encodeMatch.innerHTML = blueTest == input ? '<i class="bi bi-check"></i> The message encoded correctly' : '<i class="bi bi-x"></i> The message encoded incorrectly';
+    encodeMatch.classList = blueTest == input ? 'fw-semibold opacity-75 text-success' : 'fw-semibold opacity-75 text-danger';
+    encodeOut.innerText = blue;
+    out.value = blue;
     out.select();
     out.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(out.value);
     document.getElementById('error').innerText = '';
     if (document.getElementById('autoclear').checked) {
-        if (emoblueTest == input) {
+        if (blueTest == input) {
             setTimeout(e => {
                 if (document.getElementById('autoclear').checked) {
                     document.getElementById('encodeIn').value = '';
@@ -382,9 +241,8 @@ encodeBtn.addEventListener('click', () => {
 })
 
 decodeBtn.addEventListener('click', () => {
-    let emo = emoDecode(document.getElementById('decodeIn').value);
-    let emoblue = decode(emo);
-    decodeOut.innerText = emoblue;
+    let blue = decode(document.getElementById('decodeIn').value);
+    decodeOut.innerText = blue;
     setTimeout(e => {
         if (document.getElementById('autoclear').checked) {
             document.getElementById('decodeIn').value = '';
