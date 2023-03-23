@@ -91,7 +91,20 @@ chars.set('”', 85);
 chars.set('‘', 86);
 chars.set('’', 87);
 chars.set('\n', 88);
+chars.set('ñ', 89);
+chars.set('ś', 90);
+chars.set('ï', 91);
+chars.set('ī', 92);
+chars.set('ė', 93);
+chars.set('ë', 94);
+chars.set('š', 95);
+chars.set('ù', 96);
+chars.set('œ', 97);
+chars.set('ō', 98);
 }
+
+const numbers = ['ñ', 'ś', 'ï', 'ī', 'ė', 'ë', 'š', 'ù', 'œ', 'ō'];
+
 fillMap()
 const getLetter = (value) => {
     return [...chars].find(([key, val]) => val == value)[0]
@@ -202,6 +215,16 @@ emoChars.set('🤜', '6');
 emoChars.set('🤌', '7');
 emoChars.set('🫴', '8');
 emoChars.set('🤞', '9');
+emoChars.set('👟', 'ñ');
+emoChars.set('👒', 'ś');
+emoChars.set('⚽', 'ï');
+emoChars.set('💎', 'ī');
+emoChars.set('🏈', 'ė');
+emoChars.set('🎱', 'ë');
+emoChars.set('🏉', 'š');
+emoChars.set('🎳', 'ù');
+emoChars.set('🏐', 'œ');
+emoChars.set('🏀', 'ō');
 }
 fillEmoMap()
 const getEmo = (value) => {
@@ -235,6 +258,7 @@ let activated = false;
 const cl = chars.size;
 
 const encode = (str) => {
+    str = str.split('').map(c => isNaN(parseInt(c)) ? c : numbers[Number(c)]).join('');
     const key = Math.floor(Math.random() * (cl-1));
     let encoded = [];
     str = str.split('').reverse().join('');
@@ -271,7 +295,7 @@ const decode = (str) => {
             char.shift();
         }
     }
-    return decode.reverse().join('');
+    return decode.reverse().map(c => numbers.includes(c) ? numbers.indexOf(c).toString() : c).join('');
 }
 
 const encodeBtn = document.getElementById('encodeBtn');
@@ -280,20 +304,22 @@ const encodeOut = document.getElementById('encodeOut');
 const decodeBtn = document.getElementById('decodeBtn');
 const decodeOut = document.getElementById('decodeOut');
 
+const encodeMatch = document.getElementById('encodeMatch');
+
 encodeBtn.addEventListener('click', () => {
-    if (!document.getElementById('encodeIn').value.match(/\d/g)) {
-        let blue = encode(document.getElementById('encodeIn').value);
-        let emoblue = emoEncode(blue);
-        let out = document.getElementById('decodeIn');
-        encodeOut.innerText = emoblue;
-        out.value = emoblue;
-        out.select();
-        out.setSelectionRange(0, 99999);
-        navigator.clipboard.writeText(out.value);
-        document.getElementById('error').innerText = '';
-    } else {
-        document.getElementById('error').innerText = 'Remove all numbers and emojis';
-    }
+    let input = document.getElementById('encodeIn').value;
+    let blue = encode(document.getElementById('encodeIn').value);
+    let emoblue = emoEncode(blue);
+    let out = document.getElementById('decodeIn');
+    let emo = emoDecode(emoblue);
+    let emoblueTest = decode(emo);
+    encodeMatch.innerText = emoblueTest == input ? 'The message encoded correctly' : 'The message encoded incorrectly';
+    encodeOut.innerText = emoblue;
+    out.value = emoblue;
+    out.select();
+    out.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(out.value);
+    document.getElementById('error').innerText = '';
 })
 
 decodeBtn.addEventListener('click', () => {
