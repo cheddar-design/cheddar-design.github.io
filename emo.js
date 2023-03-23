@@ -297,6 +297,8 @@ decodeBtn.addEventListener('click', () => {
     }, 3000);
 })
 
+warn();
+
 document.querySelector('.security').addEventListener('click', e => {
     document.querySelector('.security').classList.toggle('hidden');
     activated = !activated;

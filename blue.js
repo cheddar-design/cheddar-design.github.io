@@ -114,6 +114,12 @@ const fibonacci = (num) => {
     return num < 2 ? num : fibonacci(num - 1) + fibonacci(num - 2);
 }
 
+const warn = () => {
+    console.clear();
+    activated && console.info('%c-- Security scrambler deactivated --', 'color: #198754');
+    !activated && console.info('%c-- Security scrambler is activated --', 'color: #ffda6a');
+}
+
 let activated = false;
 
 const cl = chars.size;
@@ -217,6 +223,7 @@ const decodeOut = document.getElementById('decodeOut');
 const encodeMatch = document.getElementById('encodeMatch');
 
 encodeBtn.addEventListener('click', () => {
+    warn();
     let input = document.getElementById('encodeIn').value;
     let blue = encode(document.getElementById('encodeIn').value);
     let out = document.getElementById('decodeIn');
@@ -241,6 +248,7 @@ encodeBtn.addEventListener('click', () => {
 })
 
 decodeBtn.addEventListener('click', () => {
+    warn();
     let blue = decode(document.getElementById('decodeIn').value);
     decodeOut.innerText = blue;
     setTimeout(e => {
@@ -250,12 +258,10 @@ decodeBtn.addEventListener('click', () => {
     }, 3000);
 })
 
-console.info('%c-- Security scrambler is activated --', 'color: #ffda6a');
+warn();
 
 document.querySelector('.security').addEventListener('click', e => {
     document.querySelector('.security').classList.toggle('hidden');
-    !activated && console.info('%c-- Security scrambler deactivated --', 'color: #198754');
-    activated && console.info('%c-- Security scrambler is activated --', 'color: #ffda6a');
     activated = !activated;
 })
 
