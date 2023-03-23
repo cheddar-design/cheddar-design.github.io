@@ -232,7 +232,13 @@ const getEmo = (value) => {
 }
 
 const emoEncode = (str) => {
-    let encoded = str.split('').map(c => getEmo(c));
+    let encoded = str.split('').map(c => {
+        if (activated) {
+            return getEmo(c);
+        } else {
+            return getLetter(chars.get(emoChars.get(c))+Math.floor(Math.random() * 10)%cl)
+        }
+    });
     return encoded.join('');
 }
 
