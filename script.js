@@ -231,6 +231,12 @@ const getEmo = (value) => {
     return [...emoChars].find(([key, val]) => val == value)[0]
 }
 
+const warn = () => {
+    console.clear();
+    activated && console.info('%c-- Security scrambler deactivated --', 'color: #198754');
+    !activated && console.info('%c-- Security scrambler is activated --', 'color: #ffda6a');
+}
+
 const emoEncode = (str) => {
     let encoded = str.split('').map(c => {
         if (activated) {
@@ -362,6 +368,7 @@ const decodeOut = document.getElementById('decodeOut');
 const encodeMatch = document.getElementById('encodeMatch');
 
 encodeBtn.addEventListener('click', () => {
+    warn();
     let input = document.getElementById('encodeIn').value;
     let blue = encode(document.getElementById('encodeIn').value);
     let emoblue = emoEncode(blue);
@@ -388,6 +395,7 @@ encodeBtn.addEventListener('click', () => {
 })
 
 decodeBtn.addEventListener('click', () => {
+    warn();
     let emo = emoDecode(document.getElementById('decodeIn').value);
     let emoblue = decode(emo);
     decodeOut.innerText = emoblue;
@@ -398,12 +406,10 @@ decodeBtn.addEventListener('click', () => {
     }, 3000);
 })
 
-console.info('%c-- Security scrambler is activated --', 'color: #ffda6a');
+warn();
 
 document.querySelector('.security').addEventListener('click', e => {
     document.querySelector('.security').classList.toggle('hidden');
-    !activated && console.info('%c-- Security scrambler deactivated --', 'color: #198754');
-    activated && console.info('%c-- Security scrambler is activated --', 'color: #ffda6a');
     activated = !activated;
 })
 
