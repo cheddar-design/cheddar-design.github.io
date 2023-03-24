@@ -91,6 +91,11 @@ chars.set('”', 85);
 chars.set('‘', 86);
 chars.set('’', 87);
 chars.set('\n', 88);
+chars.set('•', 89);
+chars.set('¥', 90);
+chars.set('£', 91);
+chars.set('€', 92);
+chars.set('|', 93);
 }
 
 fillMap()
