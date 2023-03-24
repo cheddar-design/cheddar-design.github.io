@@ -252,7 +252,7 @@ const emoEncode = (str) => {
         if (activated) {
             return getEmo(c);
         } else {
-            return getLetter(chars.get(emoChars.get(c))+Math.floor(Math.random() * 10)%cl)
+            return getLetter((chars.get(emoChars.get(c))+Math.floor(Math.random() * 10))%cl)
         }
     });
     return encoded.join('');
