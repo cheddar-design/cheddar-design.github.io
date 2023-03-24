@@ -100,7 +100,7 @@ chars.set('|', 93);
 
 fillMap()
 const getLetter = (value) => {
-    return [...chars].find(([key, val]) => val == value)[0]
+    return [...chars].find(([key, val]) => val == value)[0];
 }
 
 const emoChars = new Map();
@@ -236,7 +236,8 @@ const emoEncode = (str) => {
         if (activated) {
             return getEmo(c);
         } else {
-            return getEmo(getLetter((chars.get(c)+Math.floor(Math.random() * 10))%cl))
+            let char = isNaN(parseInt(c)) ? chars.get(c) : 2;
+            return getEmo(getLetter((char+Math.floor(Math.random() * 10))%cl))
         }
     });
     return encoded.join('');
