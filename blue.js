@@ -101,6 +101,11 @@ chars.set('š', 95);
 chars.set('ù', 96);
 chars.set('œ', 97);
 chars.set('ō', 98);
+chars.set('•', 99);
+chars.set('¥', 100);
+chars.set('£', 101);
+chars.set('€', 102);
+chars.set('|', 103);
 }
 
 const numbers = ['ñ', 'ś', 'ï', 'ī', 'ė', 'ë', 'š', 'ù', 'œ', 'ō'];

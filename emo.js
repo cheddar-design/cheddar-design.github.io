@@ -209,6 +209,11 @@ emoChars.set('🏉', 'š');
 emoChars.set('🎳', 'ù');
 emoChars.set('🏐', 'œ');
 emoChars.set('🏀', 'ō');
+emoChars.set('🌍', '•');
+emoChars.set('🪐', '¥');
+emoChars.set('🥓', '£');
+emoChars.set('🚧', '€');
+emoChars.set('🚨', '|');
 }
 fillEmoMap()
 const getEmo = (value) => {
